@@ -1,7 +1,15 @@
 //2016sato-yoshitaka@akt-g.jp
 //2017sato-yoshitaka@akt-g.jp
 function datadd(form) {
- if(form == ""){return}
+  if(form != ""){
+    var frdata = sendForm(form);
+  }else{
+    var fromfname = Browser.inputBox("入金ファイル名を入力して下さい");
+    var fromshid = fileinsp(fromfname);
+    var fromsp = SpreadsheetApp.openById(fromshid);
+    var fromsh = fromsp.getActiveSheet();
+    var frdata = fromsh.getDataRange().getValues();
+  }
  var now = new Date();
  var MM = now.getMonth() + 1;
  var YY = now.getFullYear();
@@ -13,12 +21,7 @@ function datadd(form) {
  var numfmt = "[$¥]#,##0";
  var numfmt2 = "@";
  //201702htmlへ変更
- //var fromfname = Browser.inputBox("入金ファイル名を入力して下さい");
- //var fromshid = fileinsp(fromfname);
- //var fromsp = SpreadsheetApp.openById(fromshid);
- //var fromsh = fromsp.getActiveSheet();
- //var frdata = fromsh.getDataRange().getValues();
- var frdata = sendForm(form);
+ 
  var frlen = frdata.length-1;
  var cnt = actsh.getLastRow();
   for (var j = 5;j<=frdata.length-1;j++){
