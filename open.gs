@@ -1,4 +1,4 @@
-// 2015_sato-yoshitaka@akt-g.jp
+// 2015~2017sato-yoshitaka@akt-g.jp
 function onOpen() {
 var today = toyearday("long");
 var slush = today.slush;
@@ -8,7 +8,7 @@ var sp = SpreadsheetApp.getActiveSpreadsheet();
 //メニュー
 var mymenu = [];
 var youmenu = [];
-mymenu.push({name:'NEW作成',functionName:"datadd"});
+mymenu.push({name:'NEW作成',functionName:"showUploader"});
 mymenu.push({name:'月末入金状況確認表作成',functionName:"officeformatlist"});
 mymenu.push({name:'集計表作成',functionName:"officecreate"});
 youmenu.push({name:'メール報告',functionName:"ofcmail"});

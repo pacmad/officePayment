@@ -1,3 +1,4 @@
+//2016~2017sato-yoshitaka@akt-g.jp
 function mysort(actsh) { //@pram->cnt 数　@pram->actsh シートOBJ
 //sort -> 部門コード→得意先コード→現場コード→日付
   var actsh = SpreadsheetApp.getActiveSheet();
@@ -12,10 +13,10 @@ function toyearday(ans,targetDate) {//日付
   var now = new Date();
   var year= now.getFullYear();
   if(ans == undefined){
-  year = year - 2000 + 12;
+  year = year - new mysheetdatabese()["warekicoff"];
   }
   else if(ans == "warekiday"){
-  year = year - 2000 + 12;
+  year = year  - new mysheetdatabese()["warekicoff"];
   }
   var month = now.getMonth()+1;
   var day =now.getDate();
@@ -47,11 +48,11 @@ function toyearday(ans,targetDate) {//日付
   
 }
 else if (ans==undefined){
-var yms = "Ｈ" + stryear + "."+ strmonth  ;
+var yms = new mysheetdatabese()["warekihead"] + stryear + "."+ strmonth  ;
 }
 
 else if (ans=="warekiday"){
-var yms = "Ｈ" + stryear + "."+ strmonth+ "."+ strday;
+var yms = new mysheetdatabese()["warekihead"] + stryear + "."+ strmonth+ "."+ strday;
 }
 Logger.log(yms);
 return yms ;
@@ -62,10 +63,10 @@ function targetDay(ans,targetDate) {//日付
   var now = new Date(targetDate);
   var year= now.getFullYear();
   if(ans == "warekimonth"){
-  year = year - 2000 + 12;
+  year = year  - new mysheetdatabese()["warekicoff"];
   }
   else if(ans == "warekiday"){
-  year = year - 2000 + 12;
+  year = year -  - new mysheetdatabese()["warekicoff"];
   }
   var month = now.getMonth()+1;
   var day =now.getDate();
@@ -97,11 +98,11 @@ function targetDay(ans,targetDate) {//日付
   
 }
 else if (ans=="warekimonth"){
-var yms = "Ｈ" + stryear + "."+ strmonth  ;
+var yms = new mysheetdatabese()["warekihead"] + stryear + "."+ strmonth  ;
 }
 
 else if (ans=="warekiday"){
-var yms = "Ｈ" + stryear + "."+ strmonth+ "."+ strday;
+var yms = new mysheetdatabese()["warekihead"] + stryear + "."+ strmonth+ "."+ strday;
 }
 Logger.log(yms);
 return yms ;

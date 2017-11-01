@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base target="_top">
+   <? var fs = new dataFetch("1woIm7u3_Ihelb0DUPIZ4ZllCGbAetVOtsEf5XLGYKJ8","処理待ち",6); ?>
+  </head>
+   <body>
+    <br>①今週の決まっている予定一覧<br>
+   　<table id="clm" border="3">
+     <tr>
+     <th>クレームNO</th>
+     <th>依頼営業所</th>
+     <th>得意先</th>
+     <th>現場</th>
+     <th>実施予定FS担当</th>
+     <th>実施予定日／実施区分／時間予定</th>
+    </tr>
+    <? for (var i = 0; i<=fs.just.length-1;i++){?>
+    <tr>
+    <?  for(var j = 0; j<=fs.just[i].length-1;j++){?>
+    <td><?=fs.just[i][j]?></td>
+    <? } ?>    
+    </tr>
+    <? } ?>
+    </table>
+    <br><b>②今月の対応状況</b><br>
+    <? var all = dataFetchMonth("1OqDU53SzcCIY8uMoVpVF1WLAhrTUIxkerJyf7u951vg","集計",23,4)?>
+    <? var cot = dataFetchMonth("1OqDU53SzcCIY8uMoVpVF1WLAhrTUIxkerJyf7u951vg","集計",23,5)?>
+    <? var result = Math.round(cot/all*1000); result = result/10?>
+    <font size="+5" color="blue">
+    <b><?= dataFetchMonth("1OqDU53SzcCIY8uMoVpVF1WLAhrTUIxkerJyf7u951vg","集計",25,2)?></b><br>
+    <b><?= dataFetchMonth("1OqDU53SzcCIY8uMoVpVF1WLAhrTUIxkerJyf7u951vg","集計",25,6)?></b><br>
+    <b><?= dataFetchMonth("1OqDU53SzcCIY8uMoVpVF1WLAhrTUIxkerJyf7u951vg","集計",25,10)?></b><br>
+    <b><?= "月例・年次以外の依頼件数" + dataFetchMonth("1OqDU53SzcCIY8uMoVpVF1WLAhrTUIxkerJyf7u951vg","集計",23,4) + "件"?></b><br>
+    <b><?= "月例・年次以外の実施件数" + dataFetchMonth("1OqDU53SzcCIY8uMoVpVF1WLAhrTUIxkerJyf7u951vg","集計",23,5) + "件"?></b><br>
+    <b><?="月例・年次以外の対応率" + result + "%"?></b><br>
+    
+    </font>
+   </body>
+</html>
+
+
+
