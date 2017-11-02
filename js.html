@@ -1,0 +1,10 @@
+<script>
+    window.addEventListener("load",function(){
+    document.getElementById("addData").style.display = "block";
+    document.getElementsByClassName("action").addEventListener("click",(function(){
+        google.script.run.withSuccessHandler(insertmsg).dataddEx(this.parentNode);
+    
+    }))})
+    function insertmsg(){
+        return document.getElementById("upload").innerHTML("取り込み完了")
+    }

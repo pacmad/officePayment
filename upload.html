@@ -2,6 +2,7 @@
 <html>
   <head>
     <base target="_top">
+    <?!=HtmlService.createHtmlOutputFromFile("js").getContent();?>
   </head>
   <body>
   データライザー入金状況データ(.CSV)で保存後<br>
@@ -10,7 +11,7 @@
 <form id="upForm">
 <input name="myFile" type="file"/>
    <br><br><br><br> 
-<input type="button" class="action" value="データ追加" onclick="google.script.run.dataddEx(this.parentNode)" />
+<input type="button" class="action" value="データ追加" id="addData"  style="none"/>
 </form>
 </div>
   </body>
