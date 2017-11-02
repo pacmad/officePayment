@@ -17,7 +17,7 @@ function owcreate1(arr,shop) {//@pram arr = 滞留データ配列 @pram shop = �
   var tosp = SpreadsheetApp.open(spobj);
   tosp.rename(warekiday+shopname+myfilename);
   var tosh = tosp.getSheetByName("原紙");
-   if (shcnt != 1){//20160923
+  if (shcnt != 1){//20160923
     for (var i = 2;i<=shcnt;i++){
      tosh.copyTo(tosp).setName(wareki + shopname +"-"+ i)
          .getRange("Q1").setValue("Ｎｏ．" + i);

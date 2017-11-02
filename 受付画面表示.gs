@@ -22,10 +22,3 @@ var html = HtmlService
 SpreadsheetApp.getActiveSpreadsheet().show(html);
 }
 
-function showUploader() {
-  var output = HtmlService.createTemplateFromFile('upload');
-  var ss = SpreadsheetApp.getActiveSpreadsheet();
-  var html = output.evaluate();
-  ss.show(html);
-}
- 

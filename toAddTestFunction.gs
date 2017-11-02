@@ -1,39 +1,59 @@
-//2016sato-yoshitaka@akt-g.jp
+//driveApiを使用してエクセルファイルを直接扱えるようにする
+//uploadHtmlにサクセスハンドラーを追加して追加されたものをビジュアル化
+//メール報告部分をもう少し改変
+function showUploader() {
+  var output = HtmlService.createTemplateFromFile('upload');
+  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  var html = output.evaluate();
+  ss.show(html);
+}
+ 
+function sendForm(theForm) {
+  var fileBlob = theForm.myFile;
+  return csvChange(fileBlob);
+}
+
+function csvChange(filelist){
+//{@pram Drivefileiterator @ret 2Dimarrydata}
+ var blob = filelist.getBlob().getDataAsString("Shift_JIS");
+ var data = Utilities.parseCsv(blob);
+ return data;
+}
+
 //2017sato-yoshitaka@akt-g.jp
-//20171102sato-yoshitaka@akt-g.jp
-function datadd() {
-  var fromfname = Browser.inputBox("入金ファイル名を入力して下さい");
-  if(fromfname == "cancel"){
-    return
+function dataddEx(form) {
+  if(form != undefined){
+    var frdata = sendForm(form);
+  }else{
+    var fromfname = Browser.inputBox("入金ファイル名を入力して下さい");
+    var fromshid = fileinsp(fromfname);
+    var fromsp = SpreadsheetApp.openById(fromshid);
+    var fromsh = fromsp.getActiveSheet();
+    var frdata = fromsh.getDataRange().getValues();
   }
-  var fromshid = fileinsp(fromfname);
-  if(fromshid == undefined){
-    return
-  }
-  var fromsp = SpreadsheetApp.openById(fromshid);
-  var fromsh = fromsp.getActiveSheet();
-  var frdata = fromsh.getDataRange().getValues();
-  var now = new Date();
-  var MM = now.getMonth() + 1;
-  var YY = now.getFullYear();
-  var actsp = SpreadsheetApp.getActiveSpreadsheet();
-  var actsh = actsp.getSheetByName("明細");//追加するシート名称
-  var acdata = actsh.getDataRange().getValues();
-  var aclen = acdata.length-1;
-  var datefmt = "m/d";
-  var numfmt = "[$¥]#,##0";
-  var numfmt2 = "@";
-  var frlen = frdata.length-1;
-  var cnt = actsh.getLastRow();
-    for (var j = 5;j<=frdata.length-1;j++){
-       var frshopcode = frdata[j][1];
-       frshopcode = Number(frshopcode);
-       if (frshopcode == ""){
-         break;
-       }
-  var frcustcode = frdata[j][3];
-  frcustcode = Number(frcustcode);
-  var frsitecode = frdata[j][7];
+ var now = new Date();
+ var MM = now.getMonth() + 1;
+ var YY = now.getFullYear();
+ var actsp = SpreadsheetApp.getActiveSpreadsheet();
+ var actsh = actsp.getSheetByName("明細");//追加するシート名称
+ var acdata = actsh.getDataRange().getValues();
+ var aclen = acdata.length-1;
+ var datefmt = "m/d";
+ var numfmt = "[$¥]#,##0";
+ var numfmt2 = "@";
+ //201702htmlへ変更
+ 
+ var frlen = frdata.length-1;
+ var cnt = actsh.getLastRow();
+  for (var j = 5;j<=frdata.length-1;j++){
+   var frshopcode = frdata[j][1];
+   frshopcode = Number(frshopcode);
+   if (frshopcode == ""){
+    break;
+   }
+   var frcustcode = frdata[j][3];
+   frcustcode = Number(frcustcode);
+   var frsitecode = frdata[j][7];
    frsitecode = Number(frsitecode);
    var frrimtdate = frdata[j][16];
    frrimtdate = new Date(frrimtdate);
@@ -134,15 +154,3 @@ function datadd() {
  mysort(actsh);
  //fromsp.rename(fromsp.getName()+"NEW作成済み")
 }//func
-
-
-
-function dataBackUp(){
- var dataSh = SpreadsheetApp.open(DriveApp.getFilesByName("共通　　滞留予定").next()).getSheetByName("明細");
- var targetSh = SpreadsheetApp.open(DriveApp.getFilesByName("滞留予定Ver.2.０").next()).getSheetByName("明細");
- var data = dataSh.getDataRange().getValues();
- targetSh.clear();
- targetSh.getRange(1,1,data.length, data[0].length).setValues(data);
- formulaControl(targetSh);
-}
-

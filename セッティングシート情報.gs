@@ -15,7 +15,7 @@ function myshopdatabese(shopcode) {
    }
   }
 }
-    2017-newFunctiondb
+   // 2017-newFunctiondb
 function mysheetdatabese(){
  var str = "データシート";
  var name = "未入金システムデータ";
