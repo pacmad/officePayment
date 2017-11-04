@@ -1,10 +1,17 @@
 <script>
     window.addEventListener("load",function(){
-    document.getElementById("addData").style.display = "block";
-    document.getElementsByClassName("action").addEventListener("click",(function(){
-        google.script.run.withSuccessHandler(insertmsg).dataddEx(this.parentNode);
+    document.getElementById("upForm").style.display = "block";
+    document.getElementById("addData").addEventListener("click",(function(){
+        google.script.run
+        .withSuccessHandler(insertmsg)
+        .withFailureHandler(onFailure)
+        .dataddEx(this.parentNode);
     
-    }))})
+    }))},false)
     function insertmsg(){
-        return document.getElementById("upload").innerHTML("取り込み完了")
+      document.getElementById("uploadresult").innerHTML = "取り込み完了";
     }
+    function onFailure(){
+      document.getElementById("uploadresult").innerHTML = "取り込み失敗";
+   　}
+  </script>

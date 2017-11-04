@@ -4,17 +4,16 @@
     <base target="_top">
     <?!=HtmlService.createHtmlOutputFromFile("js").getContent();?>
   </head>
-  <body>
-  データライザー入金状況データ(.CSV)で保存後<br>
-  ファイル選択取り込みして下さい
-    <div id="upload">
-<form id="upForm">
-<input name="myFile" type="file"/>
-   <br><br><br><br> 
-<input type="button" class="action" value="データ追加" id="addData"  style="none"/>
-</form>
-</div>
-  </body>
+    <body>
+      データライザー入金状況データ(.CSV)で保存後<br>
+      ファイル選択取り込みして下さい
+      <div id="uploadresult"></div>
+      <form id="upForm">
+        <input name="myFile" type="file"/>
+         <br><br><br><br> 
+        <input type="button" class="action" value="データ追加" id="addData"/>
+      </form>
+    </body>
 </html>
 
 

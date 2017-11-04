@@ -10,13 +10,20 @@ function showUploader() {
  
 function sendForm(theForm) {
   var fileBlob = theForm.myFile;
-  return csvChange(fileBlob);
+  return driveChange(fileBlob);
 }
 
-function csvChange(filelist){
+function driveChange(filelist){
 //{@pram Drivefileiterator @ret 2Dimarrydata}
- var blob = filelist.getBlob().getDataAsString("Shift_JIS");
- var data = Utilities.parseCsv(blob);
+var folderID = "0Bxd-O1lBjGjmSnFrSmpmUnpRTTg"
+ var blob = filelist.getBlob();
+ var filename = "temp";
+ var excelTo = Drive.Files.insert({
+ "mimeType": "application/vnd.google-apps.spreadsheet",
+  "parents": [{id: folderID}],
+  "title": filename
+}, blob);
+ var data = SpreadsheetApp.open(excelTo).getDataRange().getValues();
  return data;
 }
 
@@ -24,12 +31,9 @@ function csvChange(filelist){
 function dataddEx(form) {
   if(form != undefined){
     var frdata = sendForm(form);
+    return frdata
   }else{
-    var fromfname = Browser.inputBox("入金ファイル名を入力して下さい");
-    var fromshid = fileinsp(fromfname);
-    var fromsp = SpreadsheetApp.openById(fromshid);
-    var fromsh = fromsp.getActiveSheet();
-    var frdata = fromsh.getDataRange().getValues();
+    return
   }
  var now = new Date();
  var MM = now.getMonth() + 1;
