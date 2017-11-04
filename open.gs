@@ -7,7 +7,7 @@ function onOpen() {
   var sp = SpreadsheetApp.getActiveSpreadsheet();
   var mymenu = [];
   var youmenu = [];
-  mymenu.push({name:'NEW作成',functionName:"datadd"});
+  mymenu.push({name:'NEW作成',functionName:"showUploader"});
   mymenu.push({name:'月末入金状況確認表作成',functionName:"officeformatlist"});
   mymenu.push({name:'集計表作成',functionName:"officecreate"});
   youmenu.push({name:'メール報告',functionName:"ofcmail"});
