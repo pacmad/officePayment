@@ -1,5 +1,4 @@
-//2016_sato-yoshitaka@akt-g.jp"フィールド報告用"から引用
-//201711 テーブル表示用に改変
+//2016_sato-yoshitaka@akt-g.jp"フィールド報告用"
 function doGet(e){
  var html = HtmlService.createTemplateFromFile("todo").evaluate();
  return html
@@ -68,22 +67,5 @@ function officelocal_dateCompr(targetDate,plusDate){//日付比較
 return flgstr
 }
 
-function tablefunc(dataArray) {
-  var header = ""
-var content = "<table class='type08'><thead><tr>"
-             + "<th>入力日</th>"
-             + "<th>クレーム番号</th><th>依頼営業所</th>"
-             + "<th>得意先</th><th>現場</th>"
-             + "<th>担当予定</th><th>実施予定OR満了日等</th>"
-             + "</tr></thead><tbody>";  
- for(var i = 0;i < dataArray.length;i++){
-   content = content + "<tr>";
-     for(var j = 0;j < dataArray[i].length;j++){
-       content = content + "<th scope='row'><b>" + dataArray[i][j] + "</b></th>";
-     }
-   content = content + "</tr>";
- }
- content = header + content + "</tbody></table><body>";      
- return content
-}
+
 
