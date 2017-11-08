@@ -1,18 +1,27 @@
-//driveApiを使用してエクセルファイルを直接扱えるようにする
-//uploadHtmlにサクセスハンドラーを追加して追加されたものをビジュアル化
-//メール報告部分をもう少し改変
+/**
+ * @description アップローダページを表示します
+ * @returns {void}
+ */
 function showUploader() {
   var output = HtmlService.createTemplateFromFile('upload');
   var ss = SpreadsheetApp.getActiveSpreadsheet();
   var html = output.evaluate();
   ss.show(html);
 }
- 
+/**
+ * @description フォームからファイルを取得してドライブ
+ * @param {Object} theForm フォームオブジェクト  
+ */ 
 function sendForm(theForm) {
   var fileBlob = theForm.myFile;
   return driveChange(fileBlob);
 }
 
+/**
+ * @description グーグルスプレッドシートファイルを生成してIdを返します
+ * @param {fileObject} filelist エクセルファイルのファイルオブジェクト
+ * @returns {String} id 生成したグーグルスプレッドシートファイルのId
+ */
 function driveChange(filelist){
 //{@pram Drivefileiterator @ret 2Dimarrydata}
  var folderID = DriveApp.getFoldersByName("未入金Ver2.0").next().getId();
@@ -26,17 +35,23 @@ function driveChange(filelist){
   return excelTo.id 
  }
 
-//2017sato-yoshitaka@akt-g.jp
-//from -> to 
-//row,col 1 部門 row,col 1
-//row,col 4　得意先名称 row, col 2
-//row,col 3 得意先コード　row,col 3
-//row,col 8 現場名称 row,col4
-//row,col 7 現場コード row,col5
-//row,col 9 担当者　row,col6
-//row,col 10 計上日　row,col7
-//row,col 15 売り掛け残金 row,col8
-//row,col 16 回収予定日　row,col9//Drive.Files.
+/**
+ * @description スプレッドシートに追加処理するマクロ
+ * @param {Object} form フォームオブジェクト 
+ * @returns {String} retString 完了を通知する文字列 
+ */
+/*2017sato-yoshitaka@akt-g.jp
+from -> to 
+row,col 1 部門 row,col 1
+row,col 4　得意先名称 row, col 2
+row,col 3 得意先コード　row,col 3
+row,col 8 現場名称 row,col4
+row,col 7 現場コード row,col5
+row,col 9 担当者　row,col6
+row,col 10 計上日　row,col7
+row,col 15 売り掛け残金 row,col8
+row,col 16 回収予定日　row,col9
+*/
 function dataAddEx(form) {
   if(form != undefined){
     var excelToId = sendForm(form);
@@ -154,6 +169,7 @@ function dataAddEx(form) {
   }//h
   mysort(actsh);
   DriveApp.getFileById(excelToId).setTrashed(true);
-  return "Complete"
+  var retString = "Complete" 
+  return retString
  //fromsp.rename(fromsp.getName()+"NEW作成済み")
 }//func
