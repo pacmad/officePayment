@@ -83,20 +83,23 @@ function createTable(dataArray,headerArray){
   var formbody = "";
   var csshead = "<head><style>";
   var cssfoot = "</style></head>";
-  var content = "<body><table class='type08'>"
-  var tableHeader ="<thead><tr>";
-  var tableHeaderEnd = "</thead><tbody>";  
+  var tableBodyHead = "<body><table class='type08'>"
+  var tableBodyEnd = "</tbody></table><body>";  
+  var tableHeaderHead ="<thead><tr>";
+  var tableHeaderEnd = "</tr></thead>";  
+  var tableBodyCenter = "<tbody>"
 
   headerArray.forEach(function(element) {
-    tableHeader += "<th>" + element + "</th>" 
+    tableHeaderHead += "<th>" + element + "</th>" 
   }, this);
-  
-  for(var i = 0;i<dlength;i++){
-    //入力値が空の場合はスルー
-    if(senddata[i] == ""){
-      continue;
-    }
+  dataArray.forEach(function(element) {
+    tableBodyCenter += "<tr><td>" + element ;
+    dataArray[].forEach(function(element,index) {
+      
+    }, this);
+
     
+  }, this);
     //入力値を反映
     cocoshu = cocoshu + "<tr>";
     cocoshu = cocoshu + "<th scope='row'><b>" + formtitle[0][i] + "</b></th>";
