@@ -77,31 +77,30 @@ function ofcmailTestFunction() { //col14 -> flag "報告" or ”報告済み”
 }
 
 function createTable(dataArray,headerArray){
-  dataArray = [];
-  headerArray = [];
+  dataArray =[['A','B','C'],['D','E','F'],['G','H','I']];
+  headerArray = ['ABC','DEF','GHI','JKL','MNO'];
   var css = HtmlService.createHtmlOutputFromFile('style').getContent();
-  var formbody = "";
-  var csshead = "<head><style>";
-  var cssfoot = "</style></head>";
+  var formbody = "<!DOCTYPE html><html>";
+  var csshead = "<head>";
+  var cssfoot = "</head>";
   var tableBodyHead = "<body><table class='type08'>"
-  var tableBodyEnd = "</tbody></table><body>";  
+  var tableBodyEnd = "</tbody></table></body></html>";  
   var tableHeaderHead ="<thead><tr>";
   var tableHeaderEnd = "</tr></thead>";  
   var tableBodyCenter = "<tbody>"
 
   headerArray.forEach(function(element) {
-    tableHeaderHead += "<th>" + element + "</th>" 
+    tableHeaderHead += "<th scope='row'>" + element + "</th>" 
   }, this);
-  dataArray.forEach(function(element) {
-    tableBodyCenter += "<tr><td>" + element ;
-    dataArray[].forEach(function(element,index) {  
+  dataArray.forEach(function(element,index) {
+    tableBodyCenter += "<tr>";
+    dataArray[index].forEach(function(element,index) {
+      tableBodyCenter += "<td>" + element + "</td>";
     }, this);
+    tableBodyCenter += "</tr>";
   }, this);
-    //入力値を反映
-    cocoshu = cocoshu + "<tr>";
-    cocoshu = cocoshu + "<th scope='row'><b>" + formtitle[0][i] + "</b></th>";
-    cocoshu = cocoshu + "<td>" + senddata[0][i] + "</td>";
-    cocoshu = cocoshu + "</tr>";
-    cocoshu = cocoshu + "</tbody></table><body>";      
-    formbody = csshead + css + cssfoot + cocoshu;
+    formbody += csshead + css + cssfoot + tableBodyHead + tableHeaderHead + tableHeaderEnd + tableBodyCenter + tableBodyEnd;
+    var interFace = HtmlService.createHtmlOutput(formbody);
+    SpreadsheetApp.getActiveSpreadsheet().show(interFace);
+    Logger.log(formbody);
 }
