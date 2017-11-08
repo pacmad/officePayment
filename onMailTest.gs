@@ -94,30 +94,14 @@ function createTable(dataArray,headerArray){
   }, this);
   dataArray.forEach(function(element) {
     tableBodyCenter += "<tr><td>" + element ;
-    dataArray[].forEach(function(element,index) {
-      
+    dataArray[].forEach(function(element,index) {  
     }, this);
-
-    
   }, this);
     //入力値を反映
     cocoshu = cocoshu + "<tr>";
     cocoshu = cocoshu + "<th scope='row'><b>" + formtitle[0][i] + "</b></th>";
     cocoshu = cocoshu + "<td>" + senddata[0][i] + "</td>";
     cocoshu = cocoshu + "</tr>";
-  }
-  cocoshu = cocoshu + "</tbody></table><body>";      
-  formbody = csshead + css + cssfoot + cocoshu;
-  
-  //メールを送信
-  MailApp.sendEmail({
-    to:"sato-yoshitaka@aktio.co.jp",
-    subject: "CSSメールテスト",
-    htmlBody: formbody,
-    name: "ノーマルなCSSメール",
-    noReply: true,
-  });   
- 
-}
-
+    cocoshu = cocoshu + "</tbody></table><body>";      
+    formbody = csshead + css + cssfoot + cocoshu;
 }
