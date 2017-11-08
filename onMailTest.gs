@@ -76,3 +76,45 @@ function ofcmailTestFunction() { //col14 -> flag "報告" or ”報告済み”
   */
 }
 
+function createTable(dataArray,headerArray){
+  dataArray = [];
+  headerArray = [];
+  var css = HtmlService.createHtmlOutputFromFile('style').getContent();
+  var formbody = "";
+  var csshead = "<head><style>";
+  var cssfoot = "</style></head>";
+  var content = "<body><table class='type08'>"
+  var tableHeader ="<thead><tr>";
+  var tableHeaderEnd = "</thead><tbody>";  
+
+  headerArray.forEach(function(element) {
+    tableHeader += "<th>" + element + "</th>" 
+  }, this);
+  
+  for(var i = 0;i<dlength;i++){
+    //入力値が空の場合はスルー
+    if(senddata[i] == ""){
+      continue;
+    }
+    
+    //入力値を反映
+    cocoshu = cocoshu + "<tr>";
+    cocoshu = cocoshu + "<th scope='row'><b>" + formtitle[0][i] + "</b></th>";
+    cocoshu = cocoshu + "<td>" + senddata[0][i] + "</td>";
+    cocoshu = cocoshu + "</tr>";
+  }
+  cocoshu = cocoshu + "</tbody></table><body>";      
+  formbody = csshead + css + cssfoot + cocoshu;
+  
+  //メールを送信
+  MailApp.sendEmail({
+    to:"sato-yoshitaka@aktio.co.jp",
+    subject: "CSSメールテスト",
+    htmlBody: formbody,
+    name: "ノーマルなCSSメール",
+    noReply: true,
+  });   
+ 
+}
+
+}
