@@ -14,7 +14,7 @@ function ofcmailTestFunction() { //col14 -> flag "報告" or ”報告済み”
   var recipient = shopObj.To;
   var len =data.length-1
   var arr = [];
-  var htmlHeaderArray = ["部門コード","営業担当","得意先","現場","金額","理由","起因"];
+  const htmlHeaderArray = ["部門コード","営業担当","得意先","現場","金額","理由","起因"];
   var htmlContentsArray = [];
   var index = 0;
   for (var i = 1 ;i<=len;i++){
@@ -24,16 +24,15 @@ function ofcmailTestFunction() { //col14 -> flag "報告" or ”報告済み”
       continue;
     }
     if (flag == "報告" && shop == shopdata){
-      htmlContentsArray[index] = new Array 
-      mes += "部門コード:" + data[i][1] + "\n";
-      mes += "営業担当:" + data[i][6] + "\n";
-      mes += '得意先:'+ data[i][2] + "\n";
-      mes += '現場:'+ data[i][4] + "\n";
-      mes += '金額:'+ data[i][9] + "円\n";
+      htmlContentsArray[index] = new Array;
+      htmlContentsArray[index].push(data[i][1]);
+      htmlContentsArray[index].push(data[i][6]);
+      htmlContentsArray[index].push(data[i][2]);
+      htmlContentsArray[index].push(data[i][4] + "円");
+      htmlContentsArray[index].push(data[i][9]);
+      htmlContentsArray[index].push(data[i][12]);
+      htmlContentsArray[index].push(data[i][13]);
       result += data[i][9];
-      mes += '理由:' + data[i][12] + "\n";
-      mes += '起因:' + data[i][13] + "\n";
-      mes += "\n";
       data[i][14] = "報告済み";
       if(data[i][11] != ""){
         var mydate = new Date(data[i][11]); 
