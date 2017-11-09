@@ -13,7 +13,10 @@ function ofcmailTestFunction() { //col14 -> flag "報告" or ”報告済み”
   var shopObj = new myshopdatabese(shop);//データシート呼び出し
   var recipient = shopObj.To;
   var len =data.length-1
-  var arr = [];  
+  var arr = [];
+  var htmlHeaderArray = ["部門コード","営業担当","得意先","現場","金額","理由","起因"];
+  var htmlContentsArray = [];
+  var index = 0;
   for (var i = 1 ;i<=len;i++){
     var flag = data[i][14];
     var shopdata = data[i][1];
@@ -21,6 +24,7 @@ function ofcmailTestFunction() { //col14 -> flag "報告" or ”報告済み”
       continue;
     }
     if (flag == "報告" && shop == shopdata){
+      htmlContentsArray[index] = new Array 
       mes += "部門コード:" + data[i][1] + "\n";
       mes += "営業担当:" + data[i][6] + "\n";
       mes += '得意先:'+ data[i][2] + "\n";
