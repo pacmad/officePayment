@@ -64,8 +64,8 @@ function ofcmailTestFunction() { //col14 -> flag "報告" or ”報告済み”
   }
   ash.getDataRange().setValues(data);
   var lastrow = ash.getLastRow();
-  for ( i = 2; i<=lastrow ;i++){
-    var formula ="=tairyu(K"+i+",'集計表'!D1,L"+i+")";
+  for ( i = 2; i <= lastrow ; i++){
+    var formula = "=tairyu(K"+i+",'集計表'!D1,L"+i+")";
     ash.getRange(i,16).setFormula(formula);
     ash.getRange(i,1).setNumberFormat(datefmt);
   }
