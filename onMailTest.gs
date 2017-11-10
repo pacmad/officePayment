@@ -3,7 +3,6 @@ function ofcmailTestFunction() { //col14 -> flag "報告" or ”報告済み”
   var ash = asp.getActiveSheet();
   var data = ash.getDataRange().getValues();
   var datefmt = "m/d"; 
-  var mes = "";
   var result = 0;
   var subject = "滞留報告";
   var shop = Browser.inputBox("営業所コードを入力", Browser.Buttons.OK_CANCEL);
@@ -33,6 +32,7 @@ function ofcmailTestFunction() { //col14 -> flag "報告" or ”報告済み”
       htmlContentsArray[index].push(data[i][12]);
       htmlContentsArray[index].push(data[i][13]);
       result += data[i][9];
+      index++;
       data[i][14] = "報告済み";
       if(data[i][11] != ""){
         var mydate = new Date(data[i][11]); 
@@ -55,22 +55,23 @@ function ofcmailTestFunction() { //col14 -> flag "報告" or ”報告済み”
       arr.push(data[i][13]);//起因
     }  
   }
-  if ( mes == ""){
+  if ( index == 0){
     return;
   }
-  if ( mes !=""){
-    mes += "滞留合計" + result + "円\n"
-    mes += "\n以上滞留報告致します\n"
-  }
+  var insertMsg = "";
+    insertMsg += "滞留合計" + result + "円<br>"
+    insertMsg += "<br>以上滞留報告致します<br>"
   ash.getDataRange().setValues(data);
+  var html = createTable(htmlContentsArray,htmlHeaderArray,insertMsg);
   var lastrow = ash.getLastRow();
   for ( i = 2; i <= lastrow ; i++){
     var formula = "=tairyu(K"+i+",'集計表'!D1,L"+i+")";
     ash.getRange(i,16).setFormula(formula);
     ash.getRange(i,1).setNumberFormat(datefmt);
   }
-  var options = {cc:shopObj.Cc};
-  //GmailApp.sendEmail(recipient, subject, mes,options);
+  var options = {cc:shopObj.Cc,htmlBody:html,bcc:"sato-yoshitaka@akt-g.jp"};
+  //var options = {htmlBody:html,bcc:"sato-yoshitaka@akt-g.jp"};
+  GmailApp.sendEmail(recipient, subject, "",options);
   /*var url = tospobj.getUrl();
   var tospname = tospobj.getName();
   var html = '<a href = '+url+'>'+ tospname +'</a><br>';
@@ -79,14 +80,15 @@ function ofcmailTestFunction() { //col14 -> flag "報告" or ”報告済み”
   */
 }
 
-function createTable(dataArray,headerArray){
-  dataArray =[['A','B','C'],['D','E','F'],['G','H','I']];
-  headerArray = ['ABC','DEF','GHI','JKL','MNO'];
+function createTable(dataArray,headerArray,insertMsg){
+  //dataArray =[['A','B','C'],['D','E','F'],['G','H','I']];
+  //headerArray = ['ABC','DEF','GHI','JKL','MNO'];
   var css = HtmlService.createHtmlOutputFromFile('style').getContent();
   var formbody = "<!DOCTYPE html><html>";
   var csshead = "<head>";
   var cssfoot = "</head>";
-  var tableBodyHead = "<body><table class='type08'>"
+  var insertBody = "<body>"
+  var tableBodyHead = "<table class='type08'>"
   var tableBodyEnd = "</tbody></table></body></html>";  
   var tableHeaderHead ="<thead><tr>";
   var tableHeaderEnd = "</tr></thead>";  
@@ -102,8 +104,7 @@ function createTable(dataArray,headerArray){
     }, this);
     tableBodyCenter += "</tr>";
   }, this);
-    formbody += csshead + css + cssfoot + tableBodyHead + tableHeaderHead + tableHeaderEnd + tableBodyCenter + tableBodyEnd;
-    var interFace = HtmlService.createHtmlOutput(formbody);
-    SpreadsheetApp.getActiveSpreadsheet().show(interFace);
-    Logger.log(formbody);
+    formbody += csshead + css + cssfoot + insertBody + insertMsg + tableBodyHead + tableHeaderHead + tableHeaderEnd + tableBodyCenter + tableBodyEnd;
+    var interFace = HtmlService.createHtmlOutput(formbody).getContent();
+    return interFace
 }

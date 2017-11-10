@@ -10,7 +10,7 @@ function onOpen() {
   mymenu.push({name:'NEW作成',functionName:"showUploader"});
   mymenu.push({name:'月末入金状況確認表作成',functionName:"officeformatlist"});
   mymenu.push({name:'集計表作成',functionName:"officecreate"});
-  youmenu.push({name:'メール報告',functionName:"ofcmail"});
+  youmenu.push({name:'メール報告',functionName:"ofcmailTestFunction"});
   youmenu.push({name:'滞留一覧表作成',functionName:"ofcnomail"});
   youmenu.push({name:'カレンダーへ追加処理',functionName:"ow_calendersys_create"});
   youmenu.push({name:'滞留追加受付表示',functionName:"showReception"});
