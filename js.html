@@ -11,8 +11,8 @@
     function insertmsg(msg){
       document.getElementById("uploadresult").innerHTML = msg;
     }
-    function onFailure(msg){
-      document.getElementById("uploadresult").innerHTML = "取り込み失敗" & msg;
+    function onFailure(err){
+      document.getElementById("uploadresult").innerHTML = "取り込み失敗:" & err.message;
    　}
 </script>
   
